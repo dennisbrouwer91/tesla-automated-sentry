@@ -16,7 +16,6 @@ func main() {
 			Password:     os.Getenv("TESLA_SENTRY_PASSWORD"),
 		})
 	if err != nil {
-		fmt.Println("HIER")
 
 	} else {
 		vehicles, err := client.Vehicles()
@@ -47,8 +46,9 @@ func main() {
 							}
 						} else {
 							fmt.Println("Car is online but disconnected from charger. Not doing anything!")
-							vehicle.EnableSentry()
-						}
+=						}
+					} else {
+						fmt.Println(err)
 					}
 				} else {
 					//Car is probably sleeping
