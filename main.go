@@ -46,7 +46,9 @@ func main() {
 							}
 						} else {
 							fmt.Println("Car is online but disconnected from charger. Not doing anything!")
-=						}
+							result := vehicle.EnableSentry()
+							fmt.Println(result)
+						}
 					} else {
 						fmt.Println(err)
 					}
