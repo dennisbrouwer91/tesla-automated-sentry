@@ -1,26 +1,33 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
-
 	"tesla"
+	"time"
 )
 
-func main() {
+func teslaFunc() {
+	e := os.Getenv("TESLA_SENTRY_EMAIL")
+	p := os.Getenv("TESLA_SENTRY_PASSWORD")
+	if e == "" || p == "" {
+		fmt.Println("E-mailaddress or password not set in environment vars.")
+
+	}
 	client, err := tesla.NewClient(
 		&tesla.Auth{
 			ClientID:     "81527cff06843c8634fdc09e8ac0abefb46ac849f38fe1e431c2ef2106796384",
 			ClientSecret: "c7257eb71a564034f9419ee651c7d0e5f7aa6bfbd18bafb5c5c033b093bb2fa3",
-			Email:        os.Getenv("TESLA_SENTRY_EMAIL"),
-			Password:     os.Getenv("TESLA_SENTRY_PASSWORD"),
+			Email:        e,
+			Password:     p,
 		})
 	if err != nil {
-
+		fmt.Println(err)
 	} else {
 		vehicles, err := client.Vehicles()
-		fmt.Println("Car is currently ", vehicles[0].State)
-		if vehicles[0].State == "Asleep" {
+		fmt.Println("Car is currently", vehicles[0].State)
+		if vehicles[0].State == "sleep" {
 			fmt.Println("Not waking up car!")
 		}
 		if vehicles[0].State == "online" {
@@ -59,50 +66,20 @@ func main() {
 			}
 		}
 	}
+}
 
-	// vehicles, err := client.Vehicles()
-	// if err != nil {
-
-	// 	panic(err)
-	// }
-
-	// vehicle := vehicles[0]
-	// status, err := vehicle.MobileEnabled()
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	// fmt.Println(status)
-	// fmt.Println(vehicle.HonkHorn())
-
-	// Autopark
-	// Use with care, as this will move your car
-	// vehicle.AutoparkForward()
-	// vehicle.AutoparkReverse()
-	// Use with care, as this will move your car
-
-	// // Stream vehicle events
-	// eventChan, errChan, err := vehicle.Stream()
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// } else {
-	// 	for {
-	// 		select {
-	// 		case event := <-eventChan:
-	// 			eventJSON, _ := json.Marshal(event)
-	// 			fmt.Println(string(eventJSON))
-	// 		case err = <-errChan:
-	// 			fmt.Println(err)
-	// 			if err.Error() == "HTTP stream closed" {
-	// 				fmt.Println("Reconnecting!")
-	// 				// eventChan, errChan, err := vehicle.Stream()
-	// 				if err != nil {
-	// 					fmt.Println(err)
-	// 					return
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// }
+func main() {
+	daemon := flag.Bool("daemon", false, "Enables daemon mode if true")
+	flag.Parse()
+	fmt.Println(*daemon)
+	if *daemon {
+		fmt.Println("Starting in daemon mode")
+		tick := time.Tick(2 * time.Minute)
+		for range tick {
+			teslaFunc()
+		}
+	} else {
+		fmt.Println("Starting single run")
+		teslaFunc()
+	}
 }
