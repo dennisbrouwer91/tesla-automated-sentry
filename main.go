@@ -71,7 +71,6 @@ func teslaFunc() {
 func main() {
 	daemon := flag.Bool("daemon", false, "Enables daemon mode if true")
 	flag.Parse()
-	fmt.Println(*daemon)
 	if *daemon {
 		fmt.Println("Starting in daemon mode")
 		tick := time.Tick(2 * time.Minute)

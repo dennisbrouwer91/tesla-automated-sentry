@@ -17,3 +17,12 @@ Run the tool by excecuting the .exe (Windows) or Binary for Linux every 5 minute
 For Linux Cronjob : 
 */5 * * * * /home/<username>/teslaautomatedsentry
 ```
+
+If you want to use the daemon mode of the tool, which runs the Tesla Automated Sentry part every 2 minutes, pass the --daemon true flag : 
+
+```bash
+For Linux : 
+./teslaautomatedsentry --daemon true
+For Windows:
+teslaautomatedsentry.exe --daemon true
+```
