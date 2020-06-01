@@ -4,4 +4,4 @@ ADD . /app/
 WORKDIR /app
 RUN go get github.com/jsgoecke/tesla
 RUN go build -o main .
-CMD ["/app/main --daemon true"]
+ENTRYPOINT ["/app/main", "-daemon=true"]

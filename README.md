@@ -1,6 +1,11 @@
 # Tesla Automated Sentry
 
 This tool auto-enables Sentry-mode on your Tesla when it detects your Tesla is connected to a charger.
+
+## How does it work
+It polls the Tesla API to check if your Tesla is awake or sleeping, if sleeping it doesn't wake the car. If it's online and charging (or done charging) it will verify if Sentry mode is enabled, if not it will turn it on.
+
+## Setup
 Running this tool is super easy. Just make sure you set 2 environment variables containing your Tesla Credentials : 
 
 1. TESLA_SENTRY_EMAIL
@@ -26,6 +31,14 @@ For Linux :
 For Windows:
 teslaautomatedsentry.exe --daemon true
 ```
+
+## Docker
+You can also run this tool in a simple Docker container.
+Just run this command : 
+```
+docker run -ti tesla-automated-sentry --env TESLA_SENTRY_EMAIL=<emailaddress> --env TESLA_SENTRY_PASSWORD=<password>
+```
+This will start the container in daemon mode!
 
 ## Copyright & License
 
