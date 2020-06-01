@@ -26,3 +26,7 @@ For Linux :
 For Windows:
 teslaautomatedsentry.exe --daemon true
 ```
+
+## Copyright & License
+
+Copyright (c) 2020 Dennis Brouwer. Released under the terms of the MIT license. See LICENSE for details.

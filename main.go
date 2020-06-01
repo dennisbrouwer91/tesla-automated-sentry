@@ -4,8 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"tesla"
 	"time"
+
+	"github.com/jsgoecke/tesla"
 )
 
 func teslaFunc() {
