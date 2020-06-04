@@ -36,7 +36,7 @@ teslaautomatedsentry.exe --daemon true
 You can also run this tool in a simple Docker container.
 Just run this command : 
 ```
-docker run -ti tesla-automated-sentry --env TESLA_SENTRY_EMAIL=<emailaddress> --env TESLA_SENTRY_PASSWORD=<password>
+docker run -ti -d tesla-automated-sentry --env TESLA_SENTRY_EMAIL=<emailaddress> --env TESLA_SENTRY_PASSWORD=<password>
 ```
 This will start the container in daemon mode!
 
