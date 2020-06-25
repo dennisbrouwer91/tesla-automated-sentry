@@ -72,6 +72,7 @@ func main() {
 	flag.Parse()
 	if *daemon {
 		fmt.Println("Starting in daemon mode")
+		teslaFunc()
 		tick := time.Tick(16 * time.Minute)
 		for range tick {
 			teslaFunc()
