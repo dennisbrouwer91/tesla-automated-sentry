@@ -44,7 +44,7 @@ func teslaFunc() {
 							vehicleState, err := vehicle.VehicleState()
 							if err == nil {
 								if vehicleState.SentryMode == false {
-									fmt.Println("Sentry mode is turned off but car is charing. Enabling!")
+									fmt.Println("Sentry mode is turned off but car is charging. Enabling!")
 									vehicle.EnableSentry()
 								} else {
 									fmt.Println("Car is charging and Sentrymode is already on!")
