@@ -2,7 +2,7 @@ FROM golang:alpine as builder
 WORKDIR /build
 ADD . .
 RUN apk update && apk add --no-cache git ca-certificates && update-ca-certificates \
-    && go get github.com/jsgoecke/tesla \
+    && go get github.com/bogosj/tesla \
     && CGO_ENABLED=0 go build -ldflags='-w -s -extldflags "-static"' -a -o /build/main .
 
 FROM scratch
