@@ -1,34 +1,29 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"os"
 	"time"
 
-	"github.com/jsgoecke/tesla"
+	"github.com/bogosj/tesla"
 )
 
 func teslaFunc() {
-	e := os.Getenv("TESLA_SENTRY_EMAIL")
-	p := os.Getenv("TESLA_SENTRY_PASSWORD")
-	if e == "" || p == "" {
-		fmt.Println("E-mailaddress or password not set in environment vars.")
-
+	ctx := context.Background()
+	tokenPath := os.Getenv("TESLA_SENTRY_TOKENFILE")
+	if tokenPath == "" {
+		fmt.Println("TESLA_SENTRY_TOKENFILE environment variable not set or empty.")
 	}
-	client, err := tesla.NewClient(
-		&tesla.Auth{
-			ClientID:     "81527cff06843c8634fdc09e8ac0abefb46ac849f38fe1e431c2ef2106796384",
-			ClientSecret: "c7257eb71a564034f9419ee651c7d0e5f7aa6bfbd18bafb5c5c033b093bb2fa3",
-			Email:        e,
-			Password:     p,
-		})
+
+	client, err := tesla.NewClient(ctx, tesla.WithTokenFile(tokenPath))
 	if err != nil {
 		fmt.Println(err)
 	} else {
 		vehicles, err := client.Vehicles()
 		fmt.Println("Car is currently", vehicles[0].State)
-		if vehicles[0].State == "sleep" {
+		if vehicles[0].State == "asleep" {
 			fmt.Println("Not waking up car!")
 		}
 		if vehicles[0].State == "online" {
